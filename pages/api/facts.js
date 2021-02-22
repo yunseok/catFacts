@@ -245,6 +245,7 @@ const factsList = [
 "Cats can drink seawater."
 ]
 
+// TODO: check if contains " and replace it with '
 const getFact = () => {
     return factsList[Math.floor(Math.random() * factsList.length)]
 }

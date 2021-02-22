@@ -1,13 +1,9 @@
 function Home({ fact }) {
-    return (
-        <div>
-            {fact.data[0]}
-        </div>
-    )
+    return <div>{fact[0]}</div>
 }
 
 export async function getStaticProps() {
-    const res = await fetch("https://meowfacts.herokuapp.com/")
+    const res = await fetch("http://localhost:3000/api/facts")
     const fact = await res.json()
 
     return {
