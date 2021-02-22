@@ -1,17 +1,20 @@
-const Home = ({ release }) => {
-    return <div>{release}</div>
+function Home({ fact }) {
+    return (
+        <div>
+            {fact.data[0]}
+        </div>
+    )
 }
 
-Home.getInitialProps = async ({ query }) => {
-    const res = await fetch(`https://api.discogs.com/releases/${query.id}`)
-    const release = await res.json()
-    
-    for (let i = 0; i < release.artists.length; i++) {
-        const r = await fetch(release.artists[i].resource_url)
-        release.artists[i].detail = await r.json()
-    }
+export async function getStaticProps() {
+    const res = await fetch("https://meowfacts.herokuapp.com/")
+    const fact = await res.json()
 
-    return { release }
+    return {
+        props: {
+            fact
+        }
+    }
 }
 
 export default Home
