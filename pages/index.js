@@ -1,15 +1,17 @@
-import styled from "styled-components"
+const Home = ({ release }) => {
+    return <div>{release}</div>
+}
 
-const AppContainer = styled.div`
-    display: flex;
-`
+Home.getInitialProps = async ({ query }) => {
+    const res = await fetch(`https://api.discogs.com/releases/${query.id}`)
+    const release = await res.json()
+    
+    for (let i = 0; i < release.artists.length; i++) {
+        const r = await fetch(release.artists[i].resource_url)
+        release.artists[i].detail = await r.json()
+    }
 
-const Home = () => {
-    return (
-        <div>
-
-        </div>    
-    )
+    return { release }
 }
 
 export default Home
